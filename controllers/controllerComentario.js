@@ -7,7 +7,3 @@ module.exports = {
     },
     
 };
-
-route.post("/comentario", controllerComentario.postCreate);
-route.delete("/comentarios/:id", controllerComentario.deleteComentario);
-route.get("/postagens/:id/comentarios", controllerComentario.listarComentariosPorPostagem);

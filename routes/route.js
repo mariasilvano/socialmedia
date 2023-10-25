@@ -5,6 +5,10 @@ const controllerPostagem = require('../controllers/controllerPostagem');
 const controllerComentario = require('../controllers/controllerComentario');
 const route = express.Router();
 
+/*CRIAÇÃO DO BANCO DE DADOS BD 
+db.sequelize.sync({force: true}).then(() => {
+    console.log('{ force: true }');
+});*/
 
 module.exports = route;
 
@@ -23,6 +27,6 @@ route.get("/usuarios/:id/postagens", controllerPostagem.ListPostByUser);
 route.put("/postagem/:id", controllerPostagem.Curtir);
 
 // Rotas para Comentários
-route.post("/comentario", controllerComentario.postCreate);
+route.post("comentarioCreate", controllerComentario.postCreate)
 route.delete("/comentarios/:id", controllerComentario.deleteComentario);
 route.get("/postagens/:id/comentarios", controllerComentario.ListCommentByPost);
