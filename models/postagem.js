@@ -22,7 +22,7 @@ module.exports = (sequelize, Sequelize) => {
         curtidas:{
             type: Sequelize.INTEGER,
             allowNull: false,
-            default: 0
+            defaultValue:  0
         }
 });
 return Postagem;
