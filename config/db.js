@@ -12,4 +12,7 @@ const sequelize = new Sequelize ('socialmedia','postgres','1234',
     db.Usuario.hasMany(db.Postagem, {foreignKey: 'autorId'});
     db.Usuario.hasMany(db.Comentario, {foreignKey: 'usuarioId'});
     db.Postagem.hasMany(db.Comentario,{foreignKey: 'postagemId'});
+
+    db.Postagem.belongsTo(db.Usuario, { foreignKey: 'autorId', as: 'autor'  });
+    db.Comentario.belongsTo(db.Postagem, { foreignKey: 'postagemId', as: 'postagem'  });
     module.exports = db;
