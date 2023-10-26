@@ -23,7 +23,7 @@ route.get("usuariosPopulares",controllerUsuario.ListPopularUsers);
 route.post("/postagemCreate", controllerPostagem.postCreate);
 route.delete("/postagemDelete/:id", controllerPostagem.deletePostagem);
 route.get("/postagem/:id", controllerPostagem.ListPostById);
-route.get("/usuarios/:id/postagens", controllerPostagem.ListPostByUser);
+route.get("/postagens/:id", controllerPostagem.ListPostByUser);
 route.put("/postagem/:id", controllerPostagem.Curtir);
 
 // Rotas para Comentários
