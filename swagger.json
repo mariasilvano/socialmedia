@@ -1,0 +1,336 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API-SocialMedia",
+        "description": "API para rede social. Desenvolvida por: Carla Ribeiro Mezzomo, Rafael Couto Lira e Maria Gabriela Silvano",
+        "contact": {
+            "email": "mariasilvano@alunos.utfpr.edu.br ",
+            "name": "Maria Gabriela Silvano"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000",
+            "description": "Servidor Local"
+        }
+    ],
+    "paths": {
+        "/usuarioCreate": {
+            "post": {
+                "summary": "Criar um usuário",
+                "tags": [
+                    "Usuario"
+                ],
+                "requestBody": {
+                    "description": "Novo usuário",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "nome": "Nome do novo usuário",
+                                "apelido": "Apelido do novo usuário"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "nome": "Nome do novo usuário",
+                                        "apelido": "Apelido do novo usuário",
+                                        "updatedAt": "2023-11-07T17:22:47.212Z",
+                                        "createdAt": "2023-11-07T17:22:47.212Z"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao criar o usuário"
+                    }
+                }
+            }
+        },
+        "/usuarioDelete/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "delete": {
+                "summary": "Deletar um usuário",
+                "tags": [
+                    "Usuario"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Usuário deletado com sucesso"
+                    }
+                },
+                "500": {
+                    "description": "Erro ao deletar usuário"
+                }
+            }
+        },
+        "/usuarioEdit/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "put": {
+                "summary": "Editar um usuário",
+                "tags": [
+                    "Usuario"
+                ],
+                "requestBody": {
+                    "description": "Editar um usuário",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "apelido": "TrocandoApelido"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário editado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "nome": "Nome do novo usuário",
+                                        "apelido": "TrocandoApelido",
+                                        "createdAt": "2023-11-07T17:22:47.212Z",
+                                        "updatedAt": "2023-11-07T18:04:39.217Z"
+                                    }
+                                ]
+                            }
+                        },
+                        "404": {
+                            "description": "Usuário não encontrado"
+                        },
+                        "500": {
+                            "description": "Erro ao editar usuário"
+                        }
+                    }
+                }
+            }
+        },
+        "/postagemCreate": {
+            "post": {
+                "summary": "Criar uma postagem",
+                "tags": [
+                    "Postagens"
+                ],
+                "requestBody": {
+                    "description": "Nova postagem",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "titulo": "Título da nova postagem",
+                                "descricao": "Descrição da nova postagem",
+                                "autorId": 1
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Postagem criada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "id": 4,
+                                        "titulo": "teste123",
+                                        "descricao": "teste1234",
+                                        "autorId": 2,
+                                        "updatedAt": "2023-11-07T18:17:59.974Z",
+                                        "createdAt": "2023-11-07T18:17:59.974Z",
+                                        "curtidas": 0
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao criar postagem"
+                    }
+                }
+            }
+        },
+        "/postagemDelete/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "delete": {
+                "summary": "Deletar uma postagem",
+                "tags": [
+                    "Postagens"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Postagem deletada com sucesso"
+                    }
+                },
+                "500": {
+                    "description": "Erro ao deletar postagem"
+                }
+            }
+        },
+        "/postagem/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "put": {
+                "summary": "Curtir postagem",
+                "tags": [
+                    "Postagens"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Postagem curtida com sucesso",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "id": 2,
+                                        "titulo": "teste123",
+                                        "descricao": "teste1234",
+                                        "autorId": 2,
+                                        "curtidas": 3,
+                                        "createdAt": "2023-11-07T18:17:04.252Z",
+                                        "updatedAt": "2023-11-07T18:31:54.962Z"
+                                    }
+                                ]
+                            }
+                        },
+                        "404": {
+                            "description": "Postagem não encontrada"
+                        },
+                        "500": {
+                            "description": "Erro ao curtir postagem"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Listar postagem pelo ID",
+                "tags": [
+                    "Postagens"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Postagem encontrada",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "id": 6,
+                                        "titulo": "teste123",
+                                        "descricao": "teste123",
+                                        "autorId": 2,
+                                        "curtidas": 0,
+                                        "createdAt": "2023-11-07T18:24:42.064Z",
+                                        "updatedAt": "2023-11-07T18:24:42.064Z"
+                                    }
+                                ]
+                            }
+                        },
+                        "404": {
+                            "description": "Postagem não encontrada"
+                        },
+                        "500": {
+                            "description": "Erro ao buscar postagem"
+                        }
+                    }
+                }
+            }
+        },
+        "/postagens/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Listar postagem pelo autorId",
+                "tags": [
+                    "Postagens"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Postagem encontrada",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "id": 2,
+                                        "titulo": "teste123",
+                                        "descricao": "teste1234",
+                                        "autorId": 2,
+                                        "curtidas": 0,
+                                        "createdAt": "2023-11-07T18:17:04.252Z",
+                                        "updatedAt": "2023-11-07T18:17:04.252Z"
+                                    },
+                                    {
+                                        "id": 3,
+                                        "titulo": "teste123",
+                                        "descricao": "teste1234",
+                                        "autorId": 2,
+                                        "curtidas": 0,
+                                        "createdAt": "2023-11-07T18:17:26.872Z",
+                                        "updatedAt": "2023-11-07T18:17:26.872Z"
+                                    }
+                                ]
+                            }
+                        },
+                        "404": {
+                            "description": "Postagens não encontradas para esse autor"
+                        },
+                        "500": {
+                            "description": "Erro ao buscar postagens"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

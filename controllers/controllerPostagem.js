@@ -4,6 +4,8 @@ module.exports = {
     async postCreate(req, res) {
         try{
             const novaPostagem = req.body;
+            //Alterado para que sempre sete o número default de curtidas para que traga os dados na ordem certa no JSON
+            novaPostagem.curtidas = 0;
             const PostagemCriada = await db.Postagem.create(novaPostagem);
         
             res.status(201).json(PostagemCriada);
