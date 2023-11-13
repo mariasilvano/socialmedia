@@ -134,6 +134,131 @@
                 }
             }
         },
+        "/usuariosPopulares": {
+            "get": {
+                "summary": "Listar usuários mais populares",
+                "tags": [
+                    "Usuario"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuários encontrados",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "id": 8,
+                                        "nome": "usuario8",
+                                        "apelido":"user8",
+                                        "createdAt": "2023-11-07T18:17:04.252Z",
+                                        "updatedAt": "2023-11-07T18:17:04.252Z",
+                                        "totalCurtidas": "20"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "nome": "usuario2",
+                                        "apelido":"user2",
+                                        "createdAt": "2023-11-07T18:17:26.872Z",
+                                        "updatedAt": "2023-11-07T18:17:26.872Z",
+                                        "totalCurtidas": "17"
+                                    }
+                                ]
+                            }
+                        },
+                        "404": {
+                            "description": "Usuários não encontrados"
+                        },
+                        "500": {
+                            "description": "Erro ao buscar usuários mais populares"
+                        }
+                    }
+                }
+            }
+        },
+        "/usuarioNome/:nome": {
+            "parameters": [
+                {
+                    "name": "nome",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Listar usuários pelo nome",
+                "tags": [
+                    "Usuario"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário encontrado",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "nome": "usuario1",
+                                        "apelido":"user1",
+                                        "createdAt": "2023-11-07T18:17:04.252Z",
+                                        "updatedAt": "2023-11-07T18:17:04.252Z"
+                                    }
+                                ]
+                            }
+                        },
+                        "404": {
+                            "description": "O usuário buscado pelo nome não foi encontrado"
+                        },
+                        "500": {
+                            "description": "Erro ao buscar o usuário solicitado pelo nome"
+                        }
+                    }
+                }
+            }
+        },
+        "/usuarioApelido/:apelido": {
+            "parameters": [
+                {
+                    "name": "apelido",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Listar usuários pelo apelido",
+                "tags": [
+                    "Usuario"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário encontrado",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "id": 2,
+                                        "nome": "usuario2",
+                                        "apelido":"user2",
+                                        "createdAt": "2023-11-07T18:17:04.252Z",
+                                        "updatedAt": "2023-11-07T18:17:04.252Z"
+                                    }
+                                ]
+                            }
+                        },
+                        "404": {
+                            "description": "O usuário buscado pelo apelido não foi encontrado"
+                        },
+                        "500": {
+                            "description": "Erro ao buscar o usuário solicitado pelo apelido"
+                        }
+                    }
+                }
+            }
+        },
         "/postagemCreate": {
             "post": {
                 "summary": "Criar uma postagem",
@@ -200,10 +325,13 @@
                 },
                 "500": {
                     "description": "Erro ao deletar postagem"
+                },
+                "404": {
+                    "description": "Postagem nao encontrada"
                 }
             }
         },
-        "/postagem/{id}": {
+        "/postagemCurtir/{id}": {
             "parameters": [
                 {
                     "name": "id",
@@ -245,9 +373,21 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/postagem/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
             "get": {
-                "summary": "Listar postagem pelo ID",
+                "summary": "Listar postagem pelo Id",
                 "tags": [
                     "Postagens"
                 ],
@@ -258,13 +398,13 @@
                             "application/json": {
                                 "example": [
                                     {
-                                        "id": 6,
-                                        "titulo": "teste123",
-                                        "descricao": "teste123",
+                                        "id": 4,
+                                        "titulo": "post4",
+                                        "descricao": "post4desc",
                                         "autorId": 2,
-                                        "curtidas": 0,
-                                        "createdAt": "2023-11-07T18:24:42.064Z",
-                                        "updatedAt": "2023-11-07T18:24:42.064Z"
+                                        "curtidas": 14,
+                                        "createdAt": "2023-11-07T18:17:04.252Z",
+                                        "updatedAt": "2023-11-07T18:17:04.252Z"
                                     }
                                 ]
                             }
@@ -291,13 +431,13 @@
                 }
             ],
             "get": {
-                "summary": "Listar postagem pelo autorId",
+                "summary": "Listar postagens pelo autorId",
                 "tags": [
                     "Postagens"
                 ],
                 "responses": {
                     "200": {
-                        "description": "Postagem encontrada",
+                        "description": "Postagens encontradas",
                         "content": {
                             "application/json": {
                                 "example": [
@@ -327,6 +467,128 @@
                         },
                         "500": {
                             "description": "Erro ao buscar postagens"
+                        }
+                    }
+                }
+            }
+        },
+        "/comentarioCreate": {
+            "post": {
+                "summary": "Criar um comentário",
+                "tags": [
+                    "Comentarios"
+                ],
+                "requestBody": {
+                    "description": "Novo comentário",
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "usuarioId": 1,
+                                "postagemId": 1,
+                                "conteudo": "comentário 1 conteúdo"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Comentário criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "usuarioId": 1,
+                                        "postagemId": 1,
+                                        "conteudo": "comentário 1 conteúdo",
+                                        "updatedAt": "2023-11-07T18:17:59.974Z",
+                                        "createdAt": "2023-11-07T18:17:59.974Z"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao criar o comentário"
+                    }
+                }
+            }
+        },
+        "/comentarioDelete/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "delete": {
+                "summary": "Deletar um comentário",
+                "tags": [
+                    "Comentarios"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Comentário deletado com sucesso"
+                    }
+                },
+                "500": {
+                    "description": "Erro ao deletar comentário"
+                },
+                "404": {
+                    "description": "Comentário nao encontrado"
+                }
+            }
+        },
+        "/postagens/:id/comentarios": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Listar comentarios de uma postagem",
+                "tags": [
+                    "Comentarios"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Comentario encontrado",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "id": 2,
+                                        "usuarioId": 2,
+                                        "postagemId": 1,
+                                        "conteudo": "comentario 1 conteudo",
+                                        "createdAt": "2023-11-07T18:17:04.252Z",
+                                        "updatedAt": "2023-11-07T18:17:04.252Z"
+                                    },
+                                    {
+                                        "id": 3,
+                                        "usuarioId": 2,
+                                        "postagemId": 1,
+                                        "conteudo": "comentario 2 conteudo",
+                                        "createdAt": "2023-11-07T18:17:26.872Z",
+                                        "updatedAt": "2023-11-07T18:17:26.872Z"
+                                    }
+                                ]
+                            }
+                        },
+                        "404": {
+                            "description": "Comentarios não encontradas para essa postagem"
+                        },
+                        "500": {
+                            "description": "Erro ao buscar comentario"
                         }
                     }
                 }
