@@ -16,17 +16,19 @@ module.exports = route;
 route.post("/usuarioCreate", controllerUsuario.postCreate);
 route.delete("/usuarioDelete/:id", controllerUsuario.deleteUsuario);
 route.put("/usuarioEdit/:id", controllerUsuario.editarUser);
-route.get("/usuario/:nome/apelido", controllerUsuario.ListUserByName);
-route.get("usuariosPopulares",controllerUsuario.ListPopularUsers);
+route.get("/usuario/:nomeOuApelido", controllerUsuario.ListUserByNameOrNick);
+route.get("/usuarioNome/:nome", controllerUsuario.ListUserByName);
+route.get("/usuarioApelido/:apelido", controllerUsuario.ListUserByNick);
+route.get("/usuariosPopulares",controllerUsuario.ListPopularUsers);
 
 // Rotas para Postagens
 route.post("/postagemCreate", controllerPostagem.postCreate);
 route.delete("/postagemDelete/:id", controllerPostagem.deletePostagem);
 route.get("/postagem/:id", controllerPostagem.ListPostById);
 route.get("/postagens/:id", controllerPostagem.ListPostByUser);
-route.put("/postagem/:id", controllerPostagem.Curtir);
+route.put("/postagemCurtir/:id", controllerPostagem.Curtir);
 
 // Rotas para Comentários
-route.post("comentarioCreate", controllerComentario.postCreate)
-route.delete("/comentarios/:id", controllerComentario.deleteComentario);
+route.post("/comentarioCreate", controllerComentario.postCreate);
+route.delete("/comentarioDelete/:id", controllerComentario.deleteComentario);
 route.get("/postagens/:id/comentarios", controllerComentario.ListCommentByPost);

@@ -1,4 +1,6 @@
 const db = require('../config/db');
+const { Op } = require('sequelize');
+
 module.exports = {
     //*******Implementação do Requisito 1 (Maria Gabriela Silvano)*******
     async postCreate(req, res) {
@@ -43,9 +45,92 @@ module.exports = {
             res.status(500).json({ error: 'Erro ao editar o usuário' });
         }
     },
+    //Requisito 9 - Buscar usuário pelo nome
     async ListUserByName(req, res) {
+        const usuarioNomeparam = req.params.nome;
+        try{
+            const usuario = await db.Usuario.findAll({
+                where: {nome: usuarioNomeparam}
+            })
+            if(!usuario || usuario.length === 0){
+                return res.status(404).json({error: 'O usuário buscado pelo nome não foi encontrado'});
+            }
+            res.status(200).json(usuario);
+        }catch(error){
+            console.error(error);
+            res.status(500).json({ error: 'Erro ao buscar o usuário solicitado pelo nome' });
+        }
     },
+    //Requisito 9 - Buscar usuário pelo apelido
+    async ListUserByNick(req, res) {
+        const usuarioApelidoparam = req.params.apelido;
+        try{
+            const usuario = await db.Usuario.findAll({
+                where: {apelido: usuarioApelidoparam}
+            })
+            if(!usuario || usuario.length === 0){
+                return res.status(404).json({error: 'O usuário buscado pelo apelido não foi encontrado'});
+            }
+            res.status(200).json(usuario);
+        }catch(error){
+            console.error(error);
+            res.status(500).json({ error: 'Erro ao buscar o usuário solicitado pelo apelido' });
+        }
+    },
+    async ListUserByNameOrNick(req, res) {
+        const parametroNomeOuApelido = req.params.nomeOuApelido;
+        try {
+            // Tente encontrar o usuário pelo nome ou apelido
+            const usuario = await db.Usuario.findAll({
+                where: {
+                    [Op.or]: [
+                        { nome: parametroNomeOuApelido },
+                        { apelido: parametroNomeOuApelido }
+                    ]
+                }
+            });
+    
+            // Se ainda não encontrado, retorne um erro 404
+            if (!usuario || usuario.length === 0) {
+                return res.status(404).json({ erro: 'O usuário buscado pelo nome ou apelido não foi encontrado' });
+            }
+    
+            // Se encontrado, retorne o usuário
+            res.status(200).json(usuario);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ erro: 'Erro ao buscar o usuário solicitado pelo nome ou apelido' });
+        }
+    },
+    //Requisito 8 - Listar os usuários mais populares
     async ListPopularUsers(req, res) {
-    },
+        try{
+            const usuarios = await db.Usuario.findAll({
+                include: [{
+                    model: db.Postagem,
+                    attributes: [],
+                }],
+                attributes: {
+                    include: [
+                        [
+                            db.Sequelize.literal('(SELECT SUM("postagens"."curtidas") FROM "postagens" WHERE "postagens"."autorId" = "usuarios"."id")'),
+                            'totalCurtidas'
+                        ]
+                    ],
+                },
+                order: [[db.Sequelize.literal('(SELECT SUM("postagens"."curtidas") FROM "postagens" WHERE "postagens"."autorId" = "usuarios"."id")'), 'DESC']],
+                limit: 10
+            });
+
+            if(!usuarios){
+                return res.status(404).json({error: 'Nenhum usuário encontrado'});
+            }
+                res.status(200).json(usuarios);
+        }catch(error){
+            console.error(error);
+            res.status(500).json({ error: 'Erro ao buscar usuários mais populares' });
+        }
+            
+    }
     
 };
