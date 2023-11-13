@@ -175,7 +175,49 @@
                 }
             }
         },
-        "/usuarioNome/:nome": {
+        "/usuario/{nomeOuApelido}": {
+            "parameters": [
+                {
+                    "name": "nomeOuApelido",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Listar usuários pelo nome ou apelido",
+                "tags": [
+                    "Usuario"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário encontrado",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "nome": "usuario1",
+                                        "apelido":"user1",
+                                        "createdAt": "2023-11-07T18:17:04.252Z",
+                                        "updatedAt": "2023-11-07T18:17:04.252Z"
+                                    }
+                                ]
+                            }
+                        },
+                        "404": {
+                            "description": "O usuário buscado pelo nome ou apelido não foi encontrado"
+                        },
+                        "500": {
+                            "description": "Erro ao buscar o usuário solicitado pelo nome ou apelido"
+                        }
+                    }
+                }
+            }
+        },
+        "/usuarioNome/{nome}": {
             "parameters": [
                 {
                     "name": "nome",
@@ -217,7 +259,7 @@
                 }
             }
         },
-        "/usuarioApelido/:apelido": {
+        "/usuarioApelido/{apelido}": {
             "parameters": [
                 {
                     "name": "apelido",
@@ -543,7 +585,7 @@
                 }
             }
         },
-        "/postagens/:id/comentarios": {
+        "/postagens/{id}/comentarios": {
             "parameters": [
                 {
                     "name": "id",
