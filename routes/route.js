@@ -13,22 +13,20 @@ db.sequelize.sync({force: true}).then(() => {
 module.exports = route;
 
 //Rotas Usuário
-route.post("/usuarioCreate", controllerUsuario.postCreate);
-route.delete("/usuarioDelete/:id", controllerUsuario.deleteUsuario);
-route.put("/usuarioEdit/:id", controllerUsuario.editarUser);
+route.post("/usuario", controllerUsuario.postCreate);
+route.delete("/usuario/:id", controllerUsuario.deleteUsuario);
+route.put("/usuario/:id", controllerUsuario.editarUser);
+route.get("/usuarios",controllerUsuario.ListPopularUsers);
 route.get("/usuario/:nomeOuApelido", controllerUsuario.ListUserByNameOrNick);
-route.get("/usuarioNome/:nome", controllerUsuario.ListUserByName);
-route.get("/usuarioApelido/:apelido", controllerUsuario.ListUserByNick);
-route.get("/usuariosPopulares",controllerUsuario.ListPopularUsers);
 
 // Rotas para Postagens
-route.post("/postagemCreate", controllerPostagem.postCreate);
-route.delete("/postagemDelete/:id", controllerPostagem.deletePostagem);
+route.post("/postagem", controllerPostagem.postCreate);
+route.delete("/postagem/:id", controllerPostagem.deletePostagem);
 route.get("/postagem/:id", controllerPostagem.ListPostById);
 route.get("/postagens/:id", controllerPostagem.ListPostByUser);
-route.put("/postagemCurtir/:id", controllerPostagem.Curtir);
+route.put("/postagem/:id", controllerPostagem.Curtir);
 
 // Rotas para Comentários
-route.post("/comentarioCreate", controllerComentario.postCreate);
-route.delete("/comentarioDelete/:id", controllerComentario.deleteComentario);
-route.get("/postagens/:id/comentarios", controllerComentario.ListCommentByPost);
+route.post("/comentario", controllerComentario.postCreate);
+route.delete("/comentario/:id", controllerComentario.deleteComentario);
+route.get("/comentarios/:id/", controllerComentario.ListCommentByPost);

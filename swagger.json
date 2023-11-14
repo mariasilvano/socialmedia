@@ -16,7 +16,7 @@
         }
     ],
     "paths": {
-        "/usuarioCreate": {
+        "/usuario": {
             "post": {
                 "summary": "Criar um usuário",
                 "tags": [
@@ -56,7 +56,7 @@
                 }
             }
         },
-        "/usuarioDelete/{id}": {
+        "/usuario/{id}": {
             "parameters": [
                 {
                     "name": "id",
@@ -80,19 +80,7 @@
                 "500": {
                     "description": "Erro ao deletar usuário"
                 }
-            }
-        },
-        "/usuarioEdit/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "schema": {
-                        "type": "integer"
-                    }
-                }
-            ],
+            },
             "put": {
                 "summary": "Editar um usuário",
                 "tags": [
@@ -134,7 +122,7 @@
                 }
             }
         },
-        "/usuariosPopulares": {
+        "/usuarios": {
             "get": {
                 "summary": "Listar usuários mais populares",
                 "tags": [
@@ -217,91 +205,7 @@
                 }
             }
         },
-        "/usuarioNome/{nome}": {
-            "parameters": [
-                {
-                    "name": "nome",
-                    "in": "path",
-                    "required": true,
-                    "schema": {
-                        "type": "string"
-                    }
-                }
-            ],
-            "get": {
-                "summary": "Listar usuários pelo nome",
-                "tags": [
-                    "Usuario"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Usuário encontrado",
-                        "content": {
-                            "application/json": {
-                                "example": [
-                                    {
-                                        "id": 1,
-                                        "nome": "usuario1",
-                                        "apelido":"user1",
-                                        "createdAt": "2023-11-07T18:17:04.252Z",
-                                        "updatedAt": "2023-11-07T18:17:04.252Z"
-                                    }
-                                ]
-                            }
-                        },
-                        "404": {
-                            "description": "O usuário buscado pelo nome não foi encontrado"
-                        },
-                        "500": {
-                            "description": "Erro ao buscar o usuário solicitado pelo nome"
-                        }
-                    }
-                }
-            }
-        },
-        "/usuarioApelido/{apelido}": {
-            "parameters": [
-                {
-                    "name": "apelido",
-                    "in": "path",
-                    "required": true,
-                    "schema": {
-                        "type": "string"
-                    }
-                }
-            ],
-            "get": {
-                "summary": "Listar usuários pelo apelido",
-                "tags": [
-                    "Usuario"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Usuário encontrado",
-                        "content": {
-                            "application/json": {
-                                "example": [
-                                    {
-                                        "id": 2,
-                                        "nome": "usuario2",
-                                        "apelido":"user2",
-                                        "createdAt": "2023-11-07T18:17:04.252Z",
-                                        "updatedAt": "2023-11-07T18:17:04.252Z"
-                                    }
-                                ]
-                            }
-                        },
-                        "404": {
-                            "description": "O usuário buscado pelo apelido não foi encontrado"
-                        },
-                        "500": {
-                            "description": "Erro ao buscar o usuário solicitado pelo apelido"
-                        }
-                    }
-                }
-            }
-        },
-        "/postagemCreate": {
+        "/postagem": {
             "post": {
                 "summary": "Criar uma postagem",
                 "tags": [
@@ -344,7 +248,7 @@
                 }
             }
         },
-        "/postagemDelete/{id}": {
+        "/postagem/{id}": {
             "parameters": [
                 {
                     "name": "id",
@@ -371,19 +275,7 @@
                 "404": {
                     "description": "Postagem nao encontrada"
                 }
-            }
-        },
-        "/postagemCurtir/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "schema": {
-                        "type": "integer"
-                    }
-                }
-            ],
+            },
             "put": {
                 "summary": "Curtir postagem",
                 "tags": [
@@ -415,19 +307,7 @@
                         }
                     }
                 }
-            }
-        },
-        "/postagem/{id}": {
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "schema": {
-                        "type": "integer"
-                    }
-                }
-            ],
+            },
             "get": {
                 "summary": "Listar postagem pelo Id",
                 "tags": [
@@ -514,7 +394,7 @@
                 }
             }
         },
-        "/comentarioCreate": {
+        "/comentario": {
             "post": {
                 "summary": "Criar um comentário",
                 "tags": [
@@ -556,7 +436,7 @@
                 }
             }
         },
-        "/comentarioDelete/{id}": {
+        "/comentario/{id}": {
             "parameters": [
                 {
                     "name": "id",
@@ -585,7 +465,7 @@
                 }
             }
         },
-        "/postagens/{id}/comentarios": {
+        "/comentarios/{id}": {
             "parameters": [
                 {
                     "name": "id",
